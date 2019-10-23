@@ -39,11 +39,13 @@ public class Reviews {
                 ReviewInfo r = new ReviewInfo(score, words);
 
 
-                //My insert
+                //My portion
                 for (String word: r.words) {
                     WordInfo data = new WordInfo(word);
                     if (!H.insert(data.word,data){
-                        
+                        WordInfo change = H.pop(data.word);
+                        change.update(r);
+                        H.insert(change.word, change);
                     }
                 }
 
@@ -79,6 +81,7 @@ public class Reviews {
         int totalScore;
         int numberOfOccurences;
         String word;
+        int reviewsAffected;
 
         // Constructors
         WordInfo(String word) {
@@ -88,8 +91,8 @@ public class Reviews {
         }
 
 
-        public void update(int score){
-            this.totalScore+=score;
+        public void update(ReviewInfo info){
+            this.totalScore+=info.score;
             this.numberOfOccurences++;
         }
 
