@@ -93,7 +93,7 @@ public class  QuadraticProbingHashTable<AnyType>
         // Copy table over
         for( HashEntry<AnyType> entry : oldArray )
             if( entry != null && entry.isActive )
-                insert( entry.element );
+                insert( entry.key, entry.element );
     }
 
     /**
@@ -219,6 +219,7 @@ public class  QuadraticProbingHashTable<AnyType>
 
     private static class HashEntry<AnyType>
     {
+        public Object key;
         public AnyType  element;   // the element
         public boolean isActive;  // false if marked deleted
 
