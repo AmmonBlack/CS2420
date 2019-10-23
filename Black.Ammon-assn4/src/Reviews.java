@@ -42,8 +42,8 @@ public class Reviews {
                 //My insert
                 for (String word: r.words) {
                     WordInfo data = new WordInfo(word);
-                    if (H.contains(data)){
-                        H.find(data).update(r.score);
+                    if (!H.insert(data.word,data){
+                        
                     }
                 }
 
