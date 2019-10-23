@@ -15,7 +15,7 @@
  * Note that all "matching" is based on the equals method.
  * @author Mark Allen Weiss
  */
-public class  QuadraticProbingHashTable<AnyType>
+public class  QuadraticProbingHashTable<KeyType, DataType>
 {
     /**
      * Construct the hash table.
@@ -40,7 +40,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * already present, do nothing.
      * @param x the item to insert.
      */
-    public boolean insert( Object key, AnyType data )
+    public boolean insert( KeyType key, DataType data )
     {
         // Insert x as active
         int currentPos = findPos( key );
@@ -57,7 +57,7 @@ public class  QuadraticProbingHashTable<AnyType>
         return true;
     }
     
-    public AnyType pop(Object key ) 
+    public DataType pop(KeyType key ) 
     {
         int currentPos = findPos( key );
         if ( !isActive( currentPos ) )    
@@ -101,7 +101,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * @param x the item to search for.
      * @return the position where the search terminates.
      */
-    private int findPos( AnyType x )
+    private int findPos( KeyType x )
     {
         int offset = 1;
         int currentPos = myhash( x );
@@ -123,7 +123,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * @param x the item to remove.
      * @return true if item removed
      */
-    public boolean remove( AnyType x )
+    public boolean remove( KeyType x )
     {
         int currentPos = findPos( x );
         if( isActive( currentPos ) )
@@ -159,7 +159,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * @param x the item to search for.
      * @return true if item is found
      */
-    public boolean contains( AnyType x )
+    public boolean contains( KeyType x )
     {
         int currentPos = findPos( x );
         return isActive( currentPos );
@@ -170,7 +170,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * @param x the item to search for.
      * @return the matching item.
      */
-    private AnyType find( AnyType x )
+    private DataType find( KeyType x )
     {
         int currentPos = findPos( x );
         if (!isActive( currentPos )) {
@@ -206,7 +206,7 @@ public class  QuadraticProbingHashTable<AnyType>
             array[ i ] = null;
     }
 
-    private int myhash( AnyType x )
+    private int myhash( KeyType x )
     {
         int hashVal = x.hashCode( );
 
@@ -217,18 +217,18 @@ public class  QuadraticProbingHashTable<AnyType>
         return hashVal;
     }
 
-    private static class HashEntry<AnyType>
+    private static class HashEntry<KeyType, DataType>
     {
-        public Object key;
-        public AnyType  element;   // the element
+        public KeyType key;
+        public DataType  element;   // the element
         public boolean isActive;  // false if marked deleted
 
-        public HashEntry( AnyType e )
+        public HashEntry( DataType e )
         {
             this( e, true );
         }
 
-        public HashEntry( AnyType e, boolean i )
+        public HashEntry( DataType e, boolean i )
         {
             element  = e;
             isActive = i;
@@ -291,7 +291,7 @@ public class  QuadraticProbingHashTable<AnyType>
     // Simple main
     public static void main( String [ ] args )
     {
-        QuadraticProbingHashTable<String> H = new QuadraticProbingHashTable<>( );
+        QuadraticProbingHashTable<String, String> H = new QuadraticProbingHashTable<>( );
 
 
         long startTime = System.currentTimeMillis( );
