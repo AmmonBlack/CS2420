@@ -40,14 +40,14 @@ public class  QuadraticProbingHashTable<AnyType>
      * already present, do nothing.
      * @param x the item to insert.
      */
-    public boolean insert( AnyType x )
+    public boolean insert( Object key, AnyType data )
     {
         // Insert x as active
-        int currentPos = findPos( x );
+        int currentPos = findPos( key );
         if( isActive( currentPos ) )
             return false;
 
-        array[ currentPos ] = new HashEntry<>( x, true );
+        array[ currentPos ] = new HashEntry<>( data, true );
         theSize++;
 
         // Rehash; see Section 5.5
@@ -55,6 +55,15 @@ public class  QuadraticProbingHashTable<AnyType>
             rehash( );
 
         return true;
+    }
+    
+    public AnyType pop(Object key ) 
+    {
+        int currentPos = findPos( key );
+        if ( !isActive( currentPos ) )    
+            return null;
+        array[ currentPos ].isActive = false;
+        return array[ currentPos ].element;
     }
 
     public String toString (int limit){
@@ -161,7 +170,7 @@ public class  QuadraticProbingHashTable<AnyType>
      * @param x the item to search for.
      * @return the matching item.
      */
-    public AnyType find( AnyType x )
+    private AnyType find( AnyType x )
     {
         int currentPos = findPos( x );
         if (!isActive( currentPos )) {
