@@ -6,14 +6,18 @@ public class IntUpTree {
 
     int[] path;
 
-    //Construct tree
 
     IntUpTree(int size){
         path = new int[size];
         Arrays.fill(path, -1);
     }
 
-    int find(int key){
+    /**
+     * will return the root of the node with index = key
+     * @param key
+     * @return
+     */
+    public int find(int key){
         if (key > path.length || key < 0){return -path.length+1;} //Check to see if it's in the tree
         if (path[key] < 0)
             return key;
@@ -26,7 +30,13 @@ public class IntUpTree {
         }
     }
 
-    boolean union(int a, int b){
+    /**
+     * unionizes two nodes with index a, b
+     * @param a first item's index
+     * @param b second item's index
+     * @return true if a union finished successfully
+     */
+    public boolean union(int a, int b){
         int rootA = find(a);
         int rootB = find(b);
 
@@ -50,6 +60,10 @@ public class IntUpTree {
         }
     }
 
+    /**
+     * Returns a more readable format for the state of the tree, "index: root"
+     * @return String
+     */
     public String toString() {
         String out = "";
         for (int i = 0; i<path.length; i++) {
